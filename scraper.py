@@ -9,7 +9,11 @@ import requests
 from db import get_db_conn
 
 from bs4 import BeautifulSoup
+from bs4.element import Comment
+import json
 
+from urllib.parse import urlencode
+from urllib.request import urlretrieve
 
 
 # URL = 'https://visitseattle.org/events/page/'
@@ -47,31 +51,68 @@ from bs4 import BeautifulSoup
 #             print(f'Link: {link}')
 #     json.dump(data, open(URL_DETAIL_FILE, 'w'))
 
-# def insert_to_pg():
-#     q = '''
-#     CREATE TABLE IF NOT EXISTS events (
-#         url TEXT PRIMARY KEY,
-#         title TEXT,
-#         date TIMESTAMP WITH TIME ZONE,
-#         venue TEXT,
-#         category TEXT,
-#         location TEXT
-#     );
-#     '''
-#     conn = get_db_conn()
-#     cur = conn.cursor()
-#     cur.execute(q)
-    
-#     urls = json.load(open(URL_LIST_FILE, 'r'))
-#     data = json.load(open(URL_DETAIL_FILE, 'r'))
-#     for url, row in zip(urls, data):
-#         q = '''
-#         INSERT INTO events (url, title, date, venue, category, location)
-#         VALUES (%s, %s, %s, %s, %s, %s)
-#         ON CONFLICT (url) DO NOTHING;
-#         '''
-#         cur.execute(q, (url, row['title'], row['date'], row['venue'], row['category'], row['location']))
 
+
+url = "https://docs.edgeimpulse.com/docs/"
+
+url2= "https://www.geeksforgeeks.org/remove-all-style-scripts-and-html-tags-using-beautifulsoup/"
+
+url3= "https://ollama.com/blog"
+
+
+# r = requests.get(url2)
+
+# html_content = r.text
+
+def remove_tags(html):
+ 
+    # parse html content
+    soup = BeautifulSoup(html, "html.parser")
+ 
+    # for data in soup(['head','style', 'script','nav','header','footer']):
+    for data in soup(['nav','style', 'script', 'head', 'title', 'meta', '[document]', 'header', 'footer', 'aside', 'form', 'input', 'select', 'option', 'label', 'textarea', 'svg', 'path', 'defs', 'g', 'use', 'symbol', 'rect', 'circle', 'clipPath', 'mask', 'pattern', 'line', 'polyline', 'polygon', 'ellipse', 'text', 'tspan', 'textPath', 'image', 'pattern', 'filter', 'foreignObject', 'linearGradient', 'radialGradient', 'stop', 'view', 'a', 'link', 'style', 'noscript', 'iframe', 'embed', 'object', 'param', 'video', 'audio', 'source', 'track', 'canvas', 'map', 'area', 'table', 'caption', 'colgroup', 'col', 'tbody', 'thead', 'tfoot', 'tr', 'td', 'th', 'table', 'caption', 'colgroup', 'col', 'tbody', 'thead', 'tfoot', 'tr', 'td', 'th', 'table', 'caption', 'colgroup', 'col', 'tbody', 'thead', 'tfoot', 'tr', 'td', 'th', 'table', 'caption', 'colgroup', 'col', 'tbody', 'thead', 'tfoot', 'tr', 'td', 'th', 'table', 'caption', 'colgroup', 'col', 'tbody', 'thead', 'tfoot', 'tr', 'td', 'th', 'table', 'caption', 'colgroup', 'col', 'tbody', 'thead', 'tfoot', 'tr', 'td', 'th', 'table', 'caption', 'colgroup', 'col', 'tbody', 'thead', 'tfoot', 'tr', 'td', 'th', 'table', 'caption', 'colgroup', 'col', 'tbody', 'thead', 'tfoot', 'tr', 'td', 'th', 'table', 'caption', 'colgroup', 'col', 'tbody', 'thead', 'tfoot', 'tr', 'td', 'th', 'table', 'caption', 'colgroup', 'col', 'tbody', 'thead', 'tfoot', 'tr', 'td', 'th', 'table', 'caption', 'colgroup', 'col', 'tbody', 'thead', 'tfoot', 'tr', 'td']):
+        
+        # Remove tags
+        data.decompose()
+ 
+    # return data by retrieving the tag content
+    return ' '.join(soup.stripped_strings)
+# print(remove_tags(html_content))
+
+
+# ## get html screenshot
+# params = urlencode(dict(access_key="312547eec671428e93dbe34de811903e",
+#                         url="https://google.com",response_type="json"))
+# urlretrieve("https://api.apiflash.com/v1/urltoimage?" + params, "screenshot.json")
+
+
+def insert_to_pg():
+    q = '''
+    CREATE TABLE IF NOT EXISTS webpages (
+        url TEXT PRIMARY KEY,
+        title TEXT,
+        date TIMESTAMP WITH TIME ZONE,
+        tags TEXT[],
+        image TEXT
+    );
+    '''
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute(q)
+
+    # image_link = json.load(open(data['image'], 'r'))
+    image_link = json.load(open('screenshot.json', 'r'))['url']
+
+
+    print(image_link['url'])
+
+    # q = '''
+    # INSERT INTO webpages (url, title, date, tags, image)
+    # VALUES (%s, %s, %s, %s, %s)
+    # ON CONFLICT (url) DO NOTHING;
+    # '''
+    # cur.execute(q, (data['url'], data['title'], data['date'], data['tags'], image))
+insert_to_pg()
 # if __name__ == '__main__':
 #     list_links()
 #     get_detail_page()
@@ -100,18 +141,3 @@ def get_html_file(url):
 #         print(f'Error: {e}')
 #         print(f'Link: {link}')
 #     json.dump(data, open(URL_DETAIL_FILE, 'w'))
-
-url = "https://docs.edgeimpulse.com/docs/"
-
-import html
-
-r = requests.get(url)
-
-html_content = r.text
-
-soup = BeautifulSoup(html_content, "html.parser")
-
-# print the HTML as text
-# print(soup.body.get_text().strip())
-print(soup.title.string + '\n')
-print(soup.body.get_text().strip())
