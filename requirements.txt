@@ -6,3 +6,5 @@ sqlalchemy
 streamlit-card
 googlemaps
 datetime
+streamlit-modal
+streamlit-tags
