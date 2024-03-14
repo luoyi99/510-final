@@ -1,6 +1,9 @@
 # Bookmark Assistant
 
-The Bookmark Assistant is a Streamlit-based web application designed to help users manage their bookmarks effectively. By automatically generating relevant tags for URLs entered by the user, the app enhances the organization and retrieval of bookmarks. It also features a robust interface for filtering and managing bookmarks, making it an essential tool for users looking to streamline their web browsing experience.
+The Bookmark Assistant is a Streamlit-based web application designed to help users manage their bookmarks effectively. 
+
+## The Problem We're Solving
+Bookmark Assistant tackles the common problem of managing an overwhelming number of browser bookmarks. Our solution provides an intelligent way to automatically generate tags, filter, and organize bookmarks, turning a cluttered bookmark bar into a neatly arranged, easily navigable repository.It also features a robust interface for filtering and managing bookmarks, making it an essential tool for users looking to streamline their web browsing experience.
 
 ## How to Run
 To use the Bookmark Assistant, follow these steps:
@@ -24,13 +27,25 @@ To use the Bookmark Assistant, follow these steps:
 - **Filtering and Sorting**: Users can filter their bookmarks based on tags, titles, or URLs and sort them according to their preferences.
 - **Page Screenshot**: For each bookmark, the app captures and displays a screenshot of the webpage, providing a visual reference.
 
-## Lessons Learned
+## Reflections: What we learned
 - Learned how to integrate AI models with a web application to enhance functionality.
 - Gained insights into building and managing a Streamlit app, including the use of Streamlit components like `st_tags` and `Modal`.
 - Enhanced understanding of web scraping techniques and their applications in real-world projects.
 - Developed skills in managing and displaying dynamic content in a web application interface.
 
+## Reflections: What questions/problems did we face
+- **AI Integration for Tag Generation**: One of the core features of Bookmark Assistant is its ability to generate relevant tags automatically using AI. Integrating this functionality posed several challenges, including selecting the right AI model, ensuring its accuracy in understanding and summarizing web content, and optimizing its performance to work in real-time without slowing down the app.
+
+- **Web Scraping Accuracy**: Extracting content from various websites to generate tags required implementing robust web scraping techniques. We encountered challenges in dealing with websites that have dynamic content loaded by JavaScript, as well as handling rate limits and IP bans implemented by some sites to block scrapers.
+
+- **User Data Privacy and Security**: Ensuring the privacy and security of user data, especially bookmarks which can contain sensitive information, was a significant concern. We faced questions on the best practices to encrypt user data, manage secure sessions, and protect against vulnerabilities such as SQL injection and Cross-Site Scripting (XSS).
+
+
+
 ## Future Exploration
 - How to effectively scale the app to handle a large number of bookmarks without compromising performance?
 - What is the best way for ensuring the privacy and security of every user's bookmark data?
 - Exploring ways to improve the accuracy and relevance of automatically generated tags.
+
+## Developer
+Yi Luo，Margaret Lin，Yahan Xie
