@@ -10,7 +10,12 @@ import json
 
 from urllib.parse import urlencode
 from urllib.request import urlretrieve
-
+# q = '''
+#     DELETE FROM webpages;
+#     '''
+# conn = get_db_conn()
+# cur = conn.cursor()
+# cur.execute(q)
 
 def get_page_content(pagelink):
 
@@ -69,3 +74,53 @@ def merge_page_data(pagelink,title,page_content,image_link,tags,date):
 
     data = {"url":pagelink, "title":title, "tags":tags, "date":date, "image": image_link, "content":page_content}
     return data
+
+
+def get_saved_pages(sort_by, selected_tag = None):
+    if sort_by == "Oldest to Newest":
+        order = "date ASC"
+    elif sort_by == "Newest to Oldest":
+        order = "date DESC"
+    elif sort_by == "Title A-Z":
+        order = "title ASC"
+    elif sort_by == "Title Z-A":
+        order = "title DESC"
+
+    if not selected_tag:
+        q = f'''
+        SELECT * FROM webpages
+        ORDER BY {order};
+        '''
+    else:
+        q = f'''
+        SELECT * FROM webpages
+        WHERE tags && ARRAY{selected_tag}
+        ORDER BY {order};
+        '''
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute(q)
+    return cur.fetchall()
+
+def get_all_tags():
+    q = '''
+    SELECT tags FROM webpages;
+    '''
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute(q)
+    all_tags = cur.fetchall()
+    tags = set()
+    for tag in all_tags:
+        tags.update(tag[0])
+    
+    return list(tags)
+
+def delete_page(url):
+    q = '''
+    DELETE FROM webpages
+    WHERE url = %s;
+    '''
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute(q, (url,))
