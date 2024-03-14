@@ -5,7 +5,7 @@ The Bookmark Assistant is a Streamlit-based web application designed to help use
 ## How to Run
 To use the Bookmark Assistant, follow these steps:
 1. Visit the online version at [https://bookmark-assistant.azurewebsites.net](https://bookmark-assistant.azurewebsites.net) or run it locally on your machine.
-2. To run locally, ensure you have Streamlit installed. If not, install it using the command `pip install streamlit`.
+2. To run locally, ensure you have Streamlit installed. If not, install it using the command `pip install -r requirements.txt`.
 3. Navigate to the application directory in your terminal or command prompt.
 4. Run the app by executing `streamlit run app.py`.
 5. The app will launch in your default web browser.
@@ -16,6 +16,7 @@ To use the Bookmark Assistant, follow these steps:
 - `scraper.py`: Handles web scraping functionalities, including retrieving page content and taking webpage screenshots.
 - `gpt.py`: Utilizes a GPT model to generate relevant tags based on the content of the webpage.
 - `requirements.txt`: Lists all the necessary Python packages to run the app.
+- `display.py`: Handles 
 
 ## Features
 - **Automatic Tag Generation**: The app uses AI to analyze the content of the webpage and automatically generates relevant tags.

@@ -1,10 +1,15 @@
 psycopg2-binary
 requests
 python-dotenv
-streamlit-folium
 sqlalchemy
-streamlit-card
 googlemaps
 datetime
+streamlit
 streamlit-modal
 streamlit-tags
+streamlit-card
+streamlit-folium
+openai
+itertools
+
+
