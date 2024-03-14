@@ -16,7 +16,7 @@ To use the Bookmark Assistant, follow these steps:
 - `scraper.py`: Handles web scraping functionalities, including retrieving page content and taking webpage screenshots.
 - `gpt.py`: Utilizes a GPT model to generate relevant tags based on the content of the webpage.
 - `requirements.txt`: Lists all the necessary Python packages to run the app.
-- `display.py`: Handles 
+- `display.py`: Handles saved bookmarks styling.
 
 ## Features
 - **Automatic Tag Generation**: The app uses AI to analyze the content of the webpage and automatically generates relevant tags.
