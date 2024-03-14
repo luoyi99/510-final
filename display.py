@@ -40,6 +40,7 @@ def display_bookmarks(bookmarks):
         flex-direction: column;
         align-items: flex-start;
         padding:10px 15px 10px 15px;
+        width: 100%;
     }
     .bookmark-tag {
         display: inline-block;
