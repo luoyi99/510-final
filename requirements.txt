@@ -11,5 +11,7 @@ streamlit-card
 streamlit-folium
 openai
 itertools
+beautifulsoup4
+urllib
 
 
