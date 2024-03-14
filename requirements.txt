@@ -11,6 +11,5 @@ streamlit-card
 streamlit-folium
 openai
 beautifulsoup4
-urllib
 
 
